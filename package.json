@@ -9,14 +9,16 @@
   "scripts": {
     "clean": "rimraf dist",
     "lint": "tslint -c tslint.json 'src/**/*.ts' 'src/**/*.tsx'",
-    "start": "cross-env NODE_ENV=production npm run build && node ./dist/server/server.js",
-    "start:prod": "cross-env NODE_ENV=production node ./dist/server/server.js",
-    "build-client": "cd ./src/client && cross-env NODE_ENV=production webpack -p",
-    "dev-client": "cd ./src/client && webpack-dev-server -w",
+    "env:dev" : "cross-env NODE_ENV=development && cross-env PORT=3009",
+    "env:prod":"cross-env NODE_ENV=production && cross-env PORT=3009",
+    "start": "npm run env:prod &&  npm run build && node ./dist/server/server.js",
+    "start:prod": "npm run env:prod && cross-env PORT=3009 && node ./dist/server/server.js",
+    "build-client": "npm run env:prod && cd ./src/client && webpack -p",
+    "dev-client": "npm run env:dev && cd ./src/client && webpack-dev-server -w",
     "build-server": "tsc -p ./src/server",
     "dev-server": "tsc-watch -p ./src/server --onSuccess \"node ./dist/server/server.js\"",
-    "dev": "npm run clean && concurrently --prefix \"[{name}]\" --names \"SERVER,CLIENT\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run dev-server\" \"npm run dev-client\"",
-    "build": "npm run clean && concurrently --prefix \"[{name}]\" --names \"SERVER,CLIENT\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run build-server\" \"npm run build-client\""
+    "dev": "npm run env:dev && npm run clean && concurrently --prefix \"[{name}]\" --names \"SERVER,CLIENT\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run dev-server\" \"npm run dev-client\"",
+    "build": "npm run env:prod && npm run clean && concurrently --prefix \"[{name}]\" --names \"SERVER,CLIENT\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run build-server\" \"npm run build-client\""
   },
   "keywords": [
     "typescript",

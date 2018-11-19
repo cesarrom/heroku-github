@@ -21,10 +21,10 @@ app.use(staticsRouter());
 
 //app
 
-var server = app.listen(/* config.SERVER_PORT*/ 3009, () => {
-  console.log(`App listening on port 3009`);
+var server = app.listen(config.SERVER_PORT, () => {
+  console.log(`App listening on port ${config.SERVER_PORT}`);
   process.on('SIGINT', function() {
-    console.log("3 not listening on port 3005 anymore")
+    console.log(`NOT LISTENING AT PORT ${config.SERVER_PORT} ANYMORE`)
     server.close();
   });
 });

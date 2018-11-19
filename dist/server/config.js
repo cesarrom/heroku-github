@@ -1,5 +1,5 @@
 module.exports = {
     IS_PRODUCTION: process.env.NODE_ENV === 'production',
-    SERVER_PORT: process.env.PORT || 3000
+    SERVER_PORT: process.env.PORT || 3009
 };
 //# sourceMappingURL=config.js.map
