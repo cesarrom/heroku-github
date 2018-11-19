@@ -4,8 +4,6 @@ import { staticsRouter } from './routes/statics-router';
 import { staticsDevRouter } from './routes/statics-dev-router';
 import * as config from './config';
 import * as soap from 'soap';
-import * as vhost from 'vhost';
-const localtunnel = require('localtunnel');
 
 
 
@@ -25,17 +23,8 @@ app.use(staticsRouter());
 
 var server = app.listen(/* config.SERVER_PORT*/ 3009, () => {
   console.log(`App listening on port 3009`);
-  const tunnel = localtunnel(3009,{"subdomain":"pandora-technologies"},function(err,tunel){
-    console.log(err,tunnel)
-  });
-  
-  tunnel.on('close', function() {
-      // When the tunnel is closed
-  });
-  
   process.on('SIGINT', function() {
     console.log("3 not listening on port 3005 anymore")
-    tunnel.close();
     server.close();
   });
 });
